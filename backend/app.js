@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const Post = require("./models/post");
+const User = require("./models/user");
 
 mongoose.connect("mongodb+srv://smit:smit@123@test.ks3tz.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true })
 .then(() => {
@@ -64,13 +65,24 @@ app.delete('/api/posts/:id', (req, res) => {
 });
 
 app.get('/api/posts/:id', (req, res) => {
-  console.log(req.params.id);
   Post.findById(req.params.id).then((document) => {
-      res.status(200).json({
-        message: "fetch successfully",
-        post: document
-      });
+      res.status(200).json(document);
   });
+});
+
+
+app.post("/api/user", (req, res, next) => {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password
+  });
+  user.save().then((createdUser) => {
+    res.status(201).json({
+      message: 'User added successfully',
+      postId: createdUser._id
+    });
+  });
+  
 });
 
 module.exports = app;

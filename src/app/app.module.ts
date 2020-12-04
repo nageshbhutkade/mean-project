@@ -16,6 +16,8 @@ import { PostCreateComponent } from "./posts/post-create/post-create.component";
 import { HeaderComponent } from "./header/header.component";
 import { PostListComponent } from "./posts/post-list/post-list.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { AuthModule } from "./auth/auth.module";
+import { AngularMaterialModule } from "./angular-material.module";
 
 @NgModule({
   declarations: [
@@ -35,9 +37,11 @@ import { AppRoutingModule } from "./app-routing.module";
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [AngularMaterialModule]
 })
 export class AppModule {}
